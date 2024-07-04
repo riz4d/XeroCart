@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Form</title>
+  <!-- Include jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      var jsonData;
+      var access_code = "AVTH29KK23AM32HTMA"; // Put access code here
+      var amount = "10.00";
+      var currency = "INR";
+
+      $.ajax({
+        url: 'https://test.ccavenue.com/transaction/transaction.do?command=getJsonData&access_code=' + access_code + '&currency=' + currency + '&amount=' + amount,
+        dataType: 'jsonp',
+        jsonpCallback: 'processData',
+        success: function (data) {
+          jsonData = data;
+        },
+        error: function (xhr, textStatus, errorThrown) {
+          alert("An error occurred: " + (errorThrown ? errorThrown : xhr.status));
+        }
+      });
+
+      $(".payOption").click(function () {
+        $("#card_name").empty().append("<option value=''>Select</option>");
+
+        var paymentOption = $(this).val();
+        $("#card_type").val(paymentOption.replace("OPT", ""));
+
+        $.each(jsonData, function (index, value) {
+          if (value.payOpt == paymentOption) {
+            var payOptJSONArray = JSON.parse(value[paymentOption]);
+            $.each(payOptJSONArray, function () {
+              $("#card_name").append("<option class='" + this['dataAcceptedAt'] + " " + this['status'] + "' value='" + this['cardName'] + "'>" + this['cardName'] + "</option>");
+            });
+          }
+        });
+      });
+
+      $("#card_name").change(function () {
+        var selectedOption = $(this).find("option:selected");
+        if (selectedOption.hasClass("DOWN")) {
+          alert("Selected option is currently unavailable. Select another payment option or try again later.");
+          // You may want to handle this error condition accordingly
+        }
+
+        if (selectedOption.hasClass("ccAvenue")) {
+          $("#data_accept").val("Y");
+        } else {
+          $("#data_accept").val("N");
+        }
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div>
+    <label for="paymentOptions">Select Payment Option:</label>
+    <select id="paymentOptions" class="payOption">
+      <option value="OPT1">Payment Option 1</option>
+      <option value="OPT2">Payment Option 2</option>
+      <!-- Add more payment options as needed -->
+    </select>
+  </div>
+
+  <div>
+    <label for="card_type">Card Type:</label>
+    <input type="text" id="card_type" readonly>
+  </div>
+
+  <div>
+    <label for="card_name">Card Name:</label>
+    <select id="card_name">
+      <option value="">Select</option>
+      <!-- Options will be dynamically populated using JavaScript -->
+    </select>
+  </div>
+
+  <div>
+    <label for="data_accept">Data Accept:</label>
+    <input type="text" id="data_accept" readonly>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css?family=Inknut+Antiqua:700,400");
+
+:root {
+    --background-color: white;
+    --rectangle1-color: #F2EAD3;
+    --rectangle2-color: #FFFAED;
+    --rectangle-border-color: black;
+    --text-color: black;
+    --login-bg-color: black;
+    --button-bg-color: #D9D9D9;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 50%; /* Adjust the width percentage as needed */
+    min-height: 50%;
+    max-height: fit-content;
+    padding: 20px; 
+    max-width: 500px;
+    max-height: 500px;
+    padding-right: 90px;
+    padding-left: 70px;
+    text-align: center;
+    border-radius: 10px;
+    background: var(--rectangle1-color);
+    padding-bottom: 50px;
+    padding-top: 90px;
+}
+.container h3{
+    font-family: "Inknut Antiqua-Bold", Helvetica;
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+.container p{
+    margin-left: 12px;
+    margin-top: 30px;
+}
+.input-container {
+    
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+.input-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid var(--login-bg-color);
+    border-radius: 14px 0 0 14px;
+}
+input{
+    
+    width: 100%;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid var(--login-bg-color);
+    border-radius: 14px;
+}
+.readmailonly input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-left: 10px;
+    flex: 1;
+}
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    flex: 1;
+}
+
+.sendotp {
+    background: #000000;
+    color: white;
+    border: none;
+    padding:12px 20px;
+    cursor: pointer;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 1px;
+}
+
+.passs{
+    margin-right: 30px;
+    
+}
+.passs input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-left: 10px;
+}
+.btn {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 40px;
+    cursor: pointer;
+    width: 120px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.note{
+    text-align: left;
+    font-size: 13px;
+}

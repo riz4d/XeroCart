@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <title>Xero Cart</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Welcome to Xero Cart</h3>
+        <p>You're a new Xerox user So Fill this basic data's</p>
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="email" id="mail" name="mail" value="{{mail}}" hidden readonly>
+            <div class="passs">
+                <input type="text" name="name" id="name" placeholder="Enter Your Name">
+            </div>
+            <div class="passs">
+                <input type="number" id="phno" name="phno" placeholder="Enter Your Mobile Number">
+            </div>
+            
+            <button type="submit" class="btn">Submit Data</button>
+            
+        </form>
+        <p class="note">We are committed to ensuring the privacy and security of your personal information. As part of our commitment to providing you with the best possible service, we may collect and use your name and mobile number for user identification purposes.</p>
+    </div>
+</body>
+</html>

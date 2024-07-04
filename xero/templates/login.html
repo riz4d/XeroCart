@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <title>Xero Cart</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Login As Xero user</h3>
+        <br>
+        <p>{{status}}</p>
+        
+        {% if status == "OTP Send Succesfully" %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="passs readmailonly">
+                <input type="email" name="email" id="email" value="{{ mail }}" readonly>
+            </div>
+            <div class="passs">
+                <input type="text" id="otp" name="otp" placeholder="OTP Here">
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        {% else %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-container">
+                <input required type="email" id="email" name="email" placeholder="Username">
+                <button type="submit" class="sendotp">Send OTP</button>
+            </div>
+            <div class="passs">
+                <input type="password" placeholder="OTP Here">
+            </div>
+            <button type="button" class="btn">Login</button>
+        </form>
+        {% endif %}
+        
+        <p><a href="">facing trouble while login ??</a></p>
+    </div>
+</body>
+</html>

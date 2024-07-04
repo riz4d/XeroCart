@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xero Cart</title>
+    <link rel="stylesheet" href="{% static "Upload/up-style.css" %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="head">
+            <div class="nav-bar">
+                <h1 class="head-h1">XeroCart</h1>
+            </div>
+            <div class="support">
+                <div class="n1"><a>vava </a></div>
+                <div class="n2"><a>support </a></div>
+                <div class="n3"><a>logout </a></div>
+            </div>
+        </nav>
+        <div class="tail">
+            <h2>Order</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="up">
+                    <input type="file" class="up-file" name="file" accept="image/*,application/pdf">
+                    <p class="uploadp">Upload your file here</p>
+                </div>
+                <div class="form-container">
+                    <div class="d1">
+                      <label for="input1">Orientation: </label>
+                      <select name="" id="" class="or">
+                        <option value="">BookType</option>
+                        <option value="">One Side</option>
+                        <option value="">Two Side</option>
+                        <option value="">Spiral</option>
+                      </select>
+                    </div>
+
+                    <div class="d2">
+                      <label for="input2">No Of Copy :</label>
+                      <input class="no" type="number" id="input2" name="input2">
+                    </div>
+
+                    <div class="d3">
+                      <label for="input3">Priority: </label>
+                      <select class="pr">
+                        <option value="">Medium</option>
+                        <option value="">High</option>
+                        <option value="">Low</option>
+                      </select>
+                    </div>
+
+                </div>
+                    <input class="btn" type="submit" value="Upload">
+            </form>
+
+            <form id="razorpayForm" action="charge" method="POST">
+                {% if finalprice.finalprice != "null" %}
+                    <script
+                        src="https://checkout.razorpay.com/v1/checkout.js"
+                        data-key="rzp_test_u31jbqP5AXD46a"
+                        data-amount="{{finalprice.finalprice}}00"
+                        data-name="Daft Punk"
+                        data-description="Purchase Description"
+                        data-image="vk.jpg"
+                        data-netbanking="true"
+                        data-description="Tron Legacy"
+                        data-prefill.name="Harshil Mathur"
+                        data-prefill.email="rizadvillan@gmail.com"
+                        data-prefill.contact="9999999999"
+                        data-notes.shopping_order_id="21">
+                    </script>
+                    <script>
+                        var rzp1 = new Razorpay(options);
+                        document.getElementById('rzp-button1').onclick = function (e) {
+                            rzp1.open();
+                            e.preventDefault();
+                        }
+                        var options = {
+                            "key": "rzp_test_u31jbqP5AXD46a", // Enter the Key ID generated from the Dashboard
+                            "amount": "1000",
+                            "currency": "INR",
+                            "description": "Acme Corp",
+                            "image": "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg",
+                            "prefill": {
+                                "email": "gaurav.kuma00r@example.com",
+                                "contact": "+919900000000",
+                            },
+                            config: {
+                                display: {
+                                    blocks: {
+                                        banks: {
+                                            name: 'Pay using Axis banks',
+                                            instruments: [
+                                                {
+                                                    method: 'netbanking',
+                                                    banks: ['UTIB'],
+                                                },
+                                                {
+                                                    method: 'card',
+                                                    issuers: ['UTIB'],
+                                                },
+                                                {
+                                                    method: 'wallet',
+                                                    wallets: ['payzapp']
+                                                }
+                                            ],
+                                        },
+                                    },
+                                    sequence: ['block.banks'],
+                                    preferences: {
+                                        show_default_blocks: true,
+                                    },
+                                    
+                                    
+                                },
+                            },
+                            
+                        };
+                    </script>
+                    <button id="rzp-button1" class="btn btn-outline-dark btn-lg"><i class="fas fa-money-bill"></i> Own Checkout</button>
+                    <script>
+                        var rzp1 = new Razorpay(options);
+                        document.getElementById('rzp-button1').onclick = function (e) {
+                            rzp1.open();
+                            e.preventDefault();
+                        }
+                    </script>
+                {% endif %}
+            </form>
+        
+        
+            <div class="bill">  
+            </div>
+            <button class="pay-btn">Pay Now</button>
+        </div>
+        <div class="status">
+                <h2>Status</h2>
+                <div class="stack">
+                    <table>
+                        <tr>
+                            <td>Order ID</td>
+                            <td>:</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name</td>
+                            <td>:</td>
+                            <td>Shibin</td>
+                        </tr>
+                        <tr>
+                            <td>Payment</td>
+                            <td>:</td>
+                            <td>Done</td>
+                        </tr>
+                        
+                    </table> 
+                    <div class="circle"></div>
+                </div>
+                <div class="stack">
+                    <table>
+                        <tr>
+                            <td>Order ID:</td>
+                            <td>:</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name:</td>
+                            <td>:</td>
+                            <td>Shibin</td>
+                        </tr>
+                        <tr>
+                            <td>Payment:</td>
+                            <td>:</td>
+                            <td>Done</td>
+                        </tr>
+                        
+                    </table> 
+                    <div class="circle"></div>
+                </div>
+                <div class="stack">
+                    <table>
+                        <tr>
+                            <td>Order ID</td>
+                            <td>:</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name</td>
+                            <td>:</td>
+                            <td>Shibin</td>
+                        </tr>
+                        <tr>
+                            <td>Payment</td>
+                            <td>:</td>
+                            <td>Done</td>
+                        </tr>
+                        
+                    </table> 
+                    <div class="circle"></div>
+                </div>
+                <div class="stack">
+                    <table>
+                        <tr>
+                            <td>Order ID:</td>
+                            <td>:</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name:</td>
+                            <td>:</td>
+                            <td>Shibin</td>
+                        </tr>
+                        <tr>
+                            <td>Payment:</td>
+                            <td>:</td>
+                            <td>Done</td>
+                        </tr>
+                        
+                    </table> 
+                    <div class="circle"></div>
+                </div>
+        </div>
+        <footer></footer>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $('form input').change(function () {
+          $('form p').text(this.files.length + " file(s) selected");
+        });
+      });
+</script>
+</html>

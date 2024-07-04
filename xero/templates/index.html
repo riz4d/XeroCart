@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xero Cart</title>
+    <link rel="stylesheet" href="{% static "up-style.css" %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="head">
+            <h1 class="head-h1">X</h1>
+        </nav>
+        <div class="tail">
+            <h2>Order</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="up">
+                    <input type="file" name="file" accept="image/*,application/pdf">
+                    <p class="uploadp">Upload your file here</p>
+                </div>
+                <div class="form-container">
+                    <div class="d1">
+                      <label for="input1">Orientation: </label>
+                      <select name="orient" id="orient" class="or">
+                        <option value="booktype">BookType</option>
+                        <option value="oneside">One Side</option>
+                        <option value="twoside">Two Side</option>
+                        <option value="spiral">Spiral</option>
+                      </select>
+                    </div>
+                    <div class="d2">
+                      <label for="input2">No Of Copy :</label>
+                      <input class="no" type="number" id="input2" name="input2">
+                    </div>
+                    <div class="d3">
+                      <label for="input3">Priority: </label>
+                      <select class="pr" id="priority" name="priority">
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                      </select>
+                    </div>
+                  </div>
+                  <input class="btn" type="submit" value="Upload">
+            </form>
+
+            <form action="charge" method="POST">
+            {% if finalprice.finalprice != "null" %}<script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_u31jbqP5AXD46a"
+            data-amount="{{finalprice.finalprice}}00"
+            data-name="Daft Punk"
+            data-description="Purchase Description"
+            data-image="vk.jpg"
+            data-netbanking="true"
+            data-description="Tron Legacy"
+            data-prefill.name="Harshil Mathur"
+            data-prefill.email="rizadvillan@gmail.com"
+            data-prefill.contact="9999999999"
+            data-notes.shopping_order_id="21">
+            </script>
+            <form>
+            <button class="pay-btn">Pay {{finalprice.finalprice}} rs</button>{% endif %}
+        </div>
+        
+            
+        <div class="status">
+                <h2>Status</h2>
+                {% for i in paidcart %}<div class="stack">
+                    <table>
+                        <tr>
+                            <td>Order ID</td>
+                            <td>:</td>
+                            <td>{{i.orderid}}</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name</td>
+                            <td>:</td>
+                            <td>{{i.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Payment</td>
+                            <td>:</td>
+                            <td>{{i.status}}</td>
+                        </tr>
+                        
+                    </table> 
+                    <div class="circle"></div>
+                </div>
+                {% endfor %}
+        <footer></footer>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $('form input').change(function () {
+          $('form p').text(this.files.length + " file(s) selected");
+        });
+      });
+</script>
+</html>
